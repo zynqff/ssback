@@ -12,7 +12,7 @@ except Exception as e:
     print(f"Ошибка при инициализации Groq клиента: {e}")
     groq_client = None
 
-GROQ_MODEL = "llama-3.3-70b-versatile"  # можно поменять на "llama-3.1-8b-instant" для скорости
+GROQ_MODEL = "moonshotai/kimi-k2-instruct" # можно поменять на "llama-3.1-8b-instant" для скорости
 
 class AIService:
 
