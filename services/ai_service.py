@@ -45,7 +45,7 @@ class AIService:
     @staticmethod
     def validate_key(db: Client, key: str) -> bool:
         try:
-            response = db.table('ai_keys').select("*").eq('key', key).single().execute()
+            response = db.table('ai_keys').select("*").eq('key', key).maybe_single().execute()
             key_data = response.data
         except Exception:
             key_data = None
