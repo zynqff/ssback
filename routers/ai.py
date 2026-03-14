@@ -78,6 +78,6 @@ def chat_with_ai(request: Request, prompt: str, current_user: dict = Depends(get
     
     # Сохраняем и вопрос, и ответ в историю
     AIService.save_chat_message(db, username, 'user', prompt)
-    AIService.save_chat_message(db, username, 'model', response_text)
+    AIService.save_chat_message(db, username, 'assistant', response_text)
     
     return {"response": response_text}
