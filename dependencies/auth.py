@@ -13,6 +13,8 @@ def get_current_user(request: Request, db: Client = Depends(get_db)):
     else:
         # Иначе берём из cookies (для веб-сайта)
         token = request.cookies.get("access_token")
+        if token and token.startswith("Bearer "):
+            token = token.split(" ")[1]
     
     if not token:
         raise HTTPException(
