@@ -6,7 +6,14 @@ from supabase import Client
 from services.auth_service import AuthService
 
 def get_current_user(request: Request, db: Client = Depends(get_db)):
-    token = request.cookies.get("access_token")
+    # Сначала проверяем Authorization header (для мобильного приложения)
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        token = auth_header.split(" ")[1]
+    else:
+        # Иначе берём из cookies (для веб-сайта)
+        token = request.cookies.get("access_token")
+    
     if not token:
         raise HTTPException(
             status_code=status.HTTP_307_TEMPORARY_REDIRECT,
@@ -15,9 +22,6 @@ def get_current_user(request: Request, db: Client = Depends(get_db)):
         )
     
     try:
-        if token.startswith("Bearer "):
-            token = token.split(" ")[1]
-        
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
