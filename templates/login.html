@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Вход в Профиль</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #374151;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+    <div class="w-full max-w-sm bg-white rounded-xl shadow-2xl p-6 sm:p-8 border border-gray-200">
+
+        <h2 class="text-3xl font-extrabold text-gray-800 text-center mb-6">
+            Вход в Профиль
+        </h2>
+        
+        {% if success %}
+        <div class="mb-4 p-3 text-sm rounded-lg shadow-sm bg-green-100 text-green-700">
+            {{ success }}
+        </div>
+        {% endif %}
+        {% if error %}
+        <div class="mb-4 p-3 text-sm rounded-lg shadow-sm bg-red-100 text-red-700">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{{ request.url_for('login_post') }}">
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Логин:</label>
+                <input type="text" id="username" name="username" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-sky-500 focus:border-sky-500 transition duration-150">
+            </div>
+
+            <div class="mb-6">
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Пароль:</label>
+                <input type="password" id="password" name="password" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-sky-500 focus:border-sky-500 transition duration-150">
+            </div>
+
+            <button type="submit"
+                class="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                Войти
+            </button>
+        </form>
+
+        <div class="my-6 flex items-center">
+            <div class="flex-grow border-t border-gray-300"></div>
+            <span class="mx-4 text-sm text-gray-500">или</span>
+            <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <a href="{{ request.url_for('google_login') }}" 
+           class="w-full flex items-center justify-center bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300">
+            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.222,0-9.657-3.356-11.303-7.962l-6.571,4.819C9.656,39.663,16.318,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.089,5.571l6.19,5.238C42.012,35.85,44,30.338,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>
+            Войти через Google
+        </a>
+
+        <p class="mt-8 text-center text-sm text-gray-600">
+            Нет аккаунта? <a href="{{ request.url_for('register_get') }}"
+                class="font-medium text-sky-600 hover:text-sky-800 transition-colors">Зарегистрироваться</a>
+        </p>
+    </div>
+
+</body>
+
+</html>

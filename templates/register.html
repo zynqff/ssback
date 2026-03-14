@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Регистрация</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #374151;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+    <div class="w-full max-w-sm bg-white rounded-xl shadow-2xl p-6 sm:p-8 border border-gray-200">
+
+        <h2 class="text-3xl font-extrabold text-gray-800 text-center mb-6">
+            Регистрация
+        </h2>
+
+        {% if error %}
+        <div class="mb-4 p-3 text-sm rounded-lg shadow-sm bg-red-100 text-red-700">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{{ request.url_for('register_post') }}">
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Логин:</label>
+                <input type="text" id="username" name="username" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-sky-500 focus:border-sky-500 transition duration-150">
+            </div>
+
+            <div class="mb-6">
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Пароль:</label>
+                <input type="password" id="password" name="password" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-sky-500 focus:border-sky-500 transition duration-150">
+            </div>
+
+            <button type="submit"
+                class="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                Зарегистрироваться
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            Уже есть аккаунт? <a href="{{ request.url_for('login_get') }}"
+                class="font-medium text-sky-600 hover:text-sky-800 transition-colors">Войти</a>
+        </p>
+    </div>
+
+</body>
+
+</html>
