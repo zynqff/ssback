@@ -201,7 +201,7 @@
             </div>
             ` : ''}
         `;
-        card.onclick = () => openModal(poem.title);
+        card.onclick = () => openModal(poem.id);
         return card;
     };
 
@@ -271,8 +271,8 @@
         document.getElementById('count-read').textContent = readCount;
     };
 
-    const openModal = (title) => {
-        currentPoem = allPoems.find(p => p.title === title);
+    const openModal = (id) => {
+        currentPoem = allPoems.find(p => p.id === id);
         if (!currentPoem) {
             console.error('Стих не найден:', title);
             return;
@@ -442,7 +442,7 @@
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ title: currentPoem.title })
+                body: JSON.stringify({ title: currentPoem.title, id: currentPoem.id })
             });
 
             console.log('Response status:', response.status);
@@ -487,7 +487,7 @@
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ title: currentPoem.title })
+                body: JSON.stringify({ title: currentPoem.title, id: currentPoem.id })
             });
 
             console.log('Response status:', response.status);
