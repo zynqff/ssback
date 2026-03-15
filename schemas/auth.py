@@ -10,3 +10,4 @@ class TokenData(BaseModel):
     
 class ToggleModel(BaseModel):
     title: str
+    id: Optional[int] = None
