@@ -22,7 +22,7 @@ async def read_root(
     from fastapi.templating import Jinja2Templates
     templates = Jinja2Templates(directory="templates")
     
-    poems_response = db.table('poem').select("*").execute()
+    poems_response = db.table('poem').select("*").limit(20000).execute()
     poems = PoemService.process_poems_data(poems_response.data or [])
 
     read_poems = []
@@ -54,7 +54,10 @@ async def toggle_read(
         action = AuthService.toggle_virtual_admin_read_status(username, toggle_data.title)
         return {"success": True, "action": action}
     
-    poem_resp = db.table('poem').select('title').eq('title', toggle_data.title).execute()
+    if toggle_data.id is not None:
+        poem_resp = db.table('poem').select('title').eq('id', toggle_data.id).execute()
+    else:
+        poem_resp = db.table('poem').select('title').eq('title', toggle_data.title).limit(1).execute()
     if not poem_resp.data:
         raise HTTPException(status_code=404, detail="Стих не найден")
 
@@ -82,7 +85,10 @@ async def toggle_pin(
             "pinned_title": new_pinned
         }
     
-    poem_resp = db.table('poem').select('title').eq('title', toggle_data.title).execute()
+    if toggle_data.id is not None:
+        poem_resp = db.table('poem').select('title').eq('id', toggle_data.id).execute()
+    else:
+        poem_resp = db.table('poem').select('title').eq('title', toggle_data.title).limit(1).execute()
     if not poem_resp.data:
         raise HTTPException(status_code=404, detail="Стих не найден")
 
